@@ -62,7 +62,6 @@ public final class HttpTraceHeader {
      */
     public static Map<String, String> getDefaultHttpTraceHeaders(HttpServletRequest httpServletRequest) {
         if (!HeaderContextHolder.isPresent()) {
-
             Map<String, String> httpHeaders = sanitizeHeader(httpServletRequest);
 
             // If RequestID is not present, generate a new UUID

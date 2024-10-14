@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class HeaderContextHolder {
 
-    private static ThreadLocal<Map<String, String>> threadLocal = ThreadLocal.withInitial(HashMap::new);
+    private static final ThreadLocal<Map<String, String>> threadLocal = ThreadLocal.withInitial(HashMap::new);
 
     public static void set(Map<String, String> map) {
         threadLocal.set(map);
