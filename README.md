@@ -4,7 +4,7 @@ Common Library for Spring Boot applications, providing shared utilities and cros
 
 ## Features
 
-- **Common Logging**: Utilizes Log4j2 for application logging, featuring an ECS (Elastic Common Schema) layout for JSON format in non-local environments.
+- **Logging**: Utilizes Log4j2 for application logging, featuring an ECS (Elastic Common Schema) layout for JSON format in non-local environments.
 
 ## Requirements
 
@@ -23,7 +23,7 @@ Common Library for Spring Boot applications, providing shared utilities and cros
   ```xml
   <dependency>
       <groupId>com.erebelo</groupId>
-      <artifactId>common-logging</artifactId>
+      <artifactId>spring-common-logging</artifactId>
       <version>1.0.1-SNAPSHOT</version>
   </dependency>
   ```

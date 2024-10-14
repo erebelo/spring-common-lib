@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.erebelo</groupId>
+        <artifactId>spring-common-lib</artifactId>
+        <version>1.0.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>spring-common-logging</artifactId>
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <scope>provided</scope>
+            <!--Resolves logging conflicts-->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!--Common Utils-->
+        <dependency>
+            <groupId>com.erebelo</groupId>
+            <artifactId>spring-common-utils</artifactId>
+            <version>1.0.1-SNAPSHOT</version>
+        </dependency>
+        <!--Logging-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
+        <!--ECS Layout transforms the logging into json format-->
+        <dependency>
+            <groupId>co.elastic.logging</groupId>
+            <artifactId>log4j2-ecs-layout</artifactId>
+            <version>${ecs.layout.version}</version>
+        </dependency>
+    </dependencies>
+</project>
