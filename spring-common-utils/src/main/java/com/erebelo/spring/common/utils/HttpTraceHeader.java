@@ -1,6 +1,5 @@
 package com.erebelo.spring.common.utils;
 
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static org.apache.commons.lang3.StringUtils.split;
 import static org.apache.commons.lang3.StringUtils.trimToEmpty;
 
@@ -83,11 +82,11 @@ public final class HttpTraceHeader {
      * @return a Map containing the filtered HTTP headers
      */
     private static Map<String, String> sanitizeHeader(HttpServletRequest httpServletRequest) {
-        return REQUEST_HEADER_LIST.stream()
-                .filter(headerName -> isNotBlank(httpServletRequest.getHeader(headerName))
-                        && httpServletRequest.getHeader(headerName).charAt(8) != ',')
-                .collect(Collectors.toMap(headerName -> headerName,
-                        headerName -> trimToEmpty(split(httpServletRequest.getHeader(headerName), ',')[0])));
+        return REQUEST_HEADER_LIST.stream().filter(headerName -> {
+            String headerValue = httpServletRequest.getHeader(headerName);
+            return headerValue != null && !headerValue.trim().isEmpty();
+        }).collect(Collectors.toMap(headerName -> headerName,
+                headerName -> trimToEmpty(split(httpServletRequest.getHeader(headerName), ',')[0])));
     }
 
     /**
