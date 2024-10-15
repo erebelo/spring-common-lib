@@ -22,13 +22,13 @@ import org.springframework.web.filter.OncePerRequestFilter;
  * The filter is conditionally managed based on the application's properties:
  *
  * <pre>
- * spring.common.logging-filter.enabled=true or false
+ * spring.common.logging-context-filter.enabled=true or false
  * </pre>
  * <p>
  * If the property is not specified, the filter defaults to being enabled.
  */
 @Component
-@ConditionalOnProperty(prefix = "spring.common", name = "logging-filter.enabled", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "spring.common", name = "logging-context-filter.enabled", matchIfMissing = true)
 public class ThreadContextFilter extends OncePerRequestFilter {
 
     /**
@@ -45,8 +45,8 @@ public class ThreadContextFilter extends OncePerRequestFilter {
 
             filterChain.doFilter(request, response);
         } finally {
-            ThreadContext.clearMap();
             HeaderContextHolder.remove();
+            ThreadContext.clearMap();
         }
     }
 }
