@@ -28,7 +28,7 @@ Common Library for Spring Boot applications, providing shared utilities and cros
   </dependency>
   ```
 
-2. **Customize as Needed**: Add any additional dependencies specific to your module within its `pom.xml`.
+2. **[Module Documentation](https://github.com/erebelo/spring-common-lib/tree/main/docs/**: Refer to the module documentation for detailed instructions on proper usage.
 
 ## Run App
 
