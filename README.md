@@ -18,17 +18,7 @@ Common Library for Spring Boot applications, providing shared utilities and cros
 
 ## How to Use
 
-1. **Add Dependencies**: Include the specific module dependencies you need in your child module's `pom.xml`. For example, to add the logging module:
-
-  ```xml
-  <dependency>
-      <groupId>com.erebelo</groupId>
-      <artifactId>spring-common-logging</artifactId>
-      <version>1.0.1-SNAPSHOT</version>
-  </dependency>
-  ```
-
-2. **[Module Documentation](https://github.com/erebelo/spring-common-lib/tree/main/docs/**: Refer to the module documentation for detailed instructions on proper usage.
+Refer to the **[Spring Common Lib Docs](https://github.com/erebelo/spring-common-lib/tree/main/docs/)** for detailed instructions on proper usage of the desired module.
 
 ## Run App
 
