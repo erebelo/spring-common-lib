@@ -14,11 +14,11 @@ Common Library for Spring Boot applications, providing shared utilities and cros
 
 ## References
 
-- This project utilizes the [spring-common-parent](https://github.com/erebelo/spring-common-parent) to manage the Spring Boot version and provide common configurations for plugins and formatting
+- This project utilizes the [spring-common-parent](https://github.com/erebelo/spring-common-parent) to manage the Spring Boot version and provide common configurations for plugins and formatting.
 
 ## How to Use
 
-Refer to the **[Spring Common Lib Docs](https://github.com/erebelo/spring-common-lib/tree/main/docs/)** for detailed instructions on proper usage of the desired module.
+Refer to the **[Features](#features)** section above, where each module includes a link to its documentation for instructions on how to import and use it.
 
 ## Run App
 
