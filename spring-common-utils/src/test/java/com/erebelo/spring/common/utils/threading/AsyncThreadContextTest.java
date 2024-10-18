@@ -1,20 +1,19 @@
 package com.erebelo.spring.common.utils.threading;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.mockStatic;
+
 import com.erebelo.spring.common.utils.http.HttpTraceHeader;
 import jakarta.servlet.http.HttpServletRequest;
+import java.util.Map;
+import java.util.function.Supplier;
 import org.apache.logging.log4j.ThreadContext;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
-
-import java.util.Map;
-import java.util.function.Supplier;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.mockStatic;
 
 class AsyncThreadContextTest {
 

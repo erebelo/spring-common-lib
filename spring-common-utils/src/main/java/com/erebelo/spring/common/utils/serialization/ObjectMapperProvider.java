@@ -4,9 +4,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import lombok.experimental.UtilityClass;
-
 import java.text.SimpleDateFormat;
+import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class ObjectMapperProvider {
