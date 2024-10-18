@@ -32,7 +32,7 @@ class ByteHandlerUtilTest {
 
     @Test
     void testByteGeneratorWithNonSerializableObject() {
-        Object nonSerializableObject = new Object(); // Not serializable
+        Object nonSerializableObject = new Object();
         var result = ByteHandlerUtil.byteGenerator(nonSerializableObject);
 
         assertNull(result);
