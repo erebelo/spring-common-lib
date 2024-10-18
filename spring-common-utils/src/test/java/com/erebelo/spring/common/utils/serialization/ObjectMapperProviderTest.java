@@ -8,14 +8,14 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import java.text.SimpleDateFormat;
 import org.junit.jupiter.api.Test;
 
-class ObjectMapperUtilTest {
+class ObjectMapperProviderTest {
 
     private static final String JAVA_TIME_MODULE = "jackson-datatype-jsr310";
     private static final String ISO_LOCAL_DATE_FORMAT = "yyyy-MM-dd";
 
     @Test
     void testObjectMapperConfiguration() {
-        ObjectMapper objectMapper = ObjectMapperUtil.objectMapper;
+        ObjectMapper objectMapper = ObjectMapperProvider.objectMapper;
 
         assertThat(objectMapper.getRegisteredModuleIds()).contains(JAVA_TIME_MODULE);
         assertThat(objectMapper.getSerializationConfig().getDefaultPropertyInclusion().getValueInclusion())
@@ -30,8 +30,8 @@ class ObjectMapperUtilTest {
 
     @Test
     void testObjectMapperSingleton() {
-        ObjectMapper objectMapper1 = ObjectMapperUtil.objectMapper;
-        ObjectMapper objectMapper2 = ObjectMapperUtil.objectMapper;
+        ObjectMapper objectMapper1 = ObjectMapperProvider.objectMapper;
+        ObjectMapper objectMapper2 = ObjectMapperProvider.objectMapper;
 
         assertThat(objectMapper1).isSameAs(objectMapper2);
     }

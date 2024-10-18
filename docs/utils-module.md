@@ -2,18 +2,19 @@
 
 The `spring-common-utils` module provides a collection of utility classes designed to simplify common tasks in Spring Boot applications. This module includes utilities for serialization, object mapping, and other cross-cutting concerns that promote code reuse and maintainability across multiple microservices.
 
-## HTTP Utilities
+## Utilities
 
-### HttpTraceHeader
-The `HttpTraceHeader` class provides utility methods for managing HTTP headers in Spring Boot applications. It focuses on extracting and processing default HTTP trace headers, particularly useful for tracking requests across different services and ensuring that each request is uniquely identifiable.
+### HTTP
+- `HttpTraceHeader`: Provides methods for managing HTTP headers in Spring Boot applications. It focuses on extracting and processing default HTTP trace headers, particularly useful for tracking requests across different services and ensuring that each request is uniquely identifiable.
 
-## Serialization Utilities
+### Serialization
 
-### ByteHandlerUtil
-The `ByteHandlerUtil` class provides methods for generating byte arrays from objects and comparing byte arrays. It simplifies serialization tasks, especially when working with byte-based data processing.
+- `ByteHandler`: Provides methods for generating byte arrays from objects and comparing byte arrays. It simplifies serialization tasks, especially when working with byte-based data processing.
+- `ObjectMapperProvider`: Configures an instance of `ObjectMapper` for JSON serialization and deserialization, providing a consistent approach for handling JSON data across the application.
 
-### ObjectMapperUtil
-The `ObjectMapperUtil` class configures an instance of `ObjectMapper` for JSON serialization and deserialization, providing a consistent approach for handling JSON data across the application.
+### Threading
+
+- `AsyncThreadContext`: Provides methods for propagating the current ThreadContext to new threads created by asynchronous operations, such as those initiated by CompletableFuture. This is particularly useful for maintaining context-specific data (like HTTP headers) across threads, ensuring that logging and other context-sensitive operations remain consistent.
 
 ## How to Use the Common Utils Module
 

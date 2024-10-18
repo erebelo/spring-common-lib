@@ -5,13 +5,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Arrays;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class ByteHandlerUtil {
+@UtilityClass
+public class ByteHandler {
 
     public static ByteWrapperObject byteGenerator(Object obj) {
         log.info("Generating a byte array from object");

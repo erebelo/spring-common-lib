@@ -11,12 +11,12 @@ import lombok.Getter;
 import lombok.Setter;
 import org.junit.jupiter.api.Test;
 
-class ByteHandlerUtilTest {
+class ByteHandlerTest {
 
     @Test
     void testByteGeneratorWithValidObject() {
         TestObject testObject = new TestObject("Test");
-        var result = ByteHandlerUtil.byteGenerator(testObject);
+        var result = ByteHandler.byteGenerator(testObject);
 
         assertNotNull(result);
         assertTrue(result.getByteArray().length > 0);
@@ -24,7 +24,7 @@ class ByteHandlerUtilTest {
 
     @Test
     void testByteGeneratorWithNullObject() {
-        var result = ByteHandlerUtil.byteGenerator(null);
+        var result = ByteHandler.byteGenerator(null);
 
         assertNotNull(result);
         assertTrue(result.getByteArray().length > 0);
@@ -33,7 +33,7 @@ class ByteHandlerUtilTest {
     @Test
     void testByteGeneratorWithNonSerializableObject() {
         Object nonSerializableObject = new Object();
-        var result = ByteHandlerUtil.byteGenerator(nonSerializableObject);
+        var result = ByteHandler.byteGenerator(nonSerializableObject);
 
         assertNull(result);
     }
@@ -43,9 +43,9 @@ class ByteHandlerUtilTest {
         TestObject obj1 = new TestObject("Test");
         TestObject obj2 = new TestObject("Test");
 
-        var bwo1 = ByteHandlerUtil.byteGenerator(obj1);
-        var bwo2 = ByteHandlerUtil.byteGenerator(obj2);
-        boolean result = ByteHandlerUtil.byteArrayComparison(bwo1, bwo2);
+        var bwo1 = ByteHandler.byteGenerator(obj1);
+        var bwo2 = ByteHandler.byteGenerator(obj2);
+        boolean result = ByteHandler.byteArrayComparison(bwo1, bwo2);
 
         assertTrue(result);
     }
@@ -55,9 +55,9 @@ class ByteHandlerUtilTest {
         TestObject obj1 = new TestObject("Test1");
         TestObject obj2 = new TestObject("Test2");
 
-        var bwo1 = ByteHandlerUtil.byteGenerator(obj1);
-        var bwo2 = ByteHandlerUtil.byteGenerator(obj2);
-        boolean result = ByteHandlerUtil.byteArrayComparison(bwo1, bwo2);
+        var bwo1 = ByteHandler.byteGenerator(obj1);
+        var bwo2 = ByteHandler.byteGenerator(obj2);
+        boolean result = ByteHandler.byteArrayComparison(bwo1, bwo2);
 
         assertFalse(result);
     }
@@ -66,8 +66,8 @@ class ByteHandlerUtilTest {
     void testByteArrayComparisonWithNullOldObject() {
         TestObject obj1 = new TestObject("Test");
 
-        var bwo1 = ByteHandlerUtil.byteGenerator(obj1);
-        boolean result = ByteHandlerUtil.byteArrayComparison(null, bwo1);
+        var bwo1 = ByteHandler.byteGenerator(obj1);
+        boolean result = ByteHandler.byteArrayComparison(null, bwo1);
 
         assertFalse(result);
     }
@@ -76,15 +76,15 @@ class ByteHandlerUtilTest {
     void testByteArrayComparisonWithNullNewObject() {
         TestObject obj1 = new TestObject("Test");
 
-        var bwo1 = ByteHandlerUtil.byteGenerator(obj1);
-        boolean result = ByteHandlerUtil.byteArrayComparison(bwo1, null);
+        var bwo1 = ByteHandler.byteGenerator(obj1);
+        boolean result = ByteHandler.byteArrayComparison(bwo1, null);
 
         assertFalse(result);
     }
 
     @Test
     void testByteArrayComparisonWithBothNullObjects() {
-        boolean result = ByteHandlerUtil.byteArrayComparison(null, null);
+        boolean result = ByteHandler.byteArrayComparison(null, null);
 
         assertFalse(result);
     }

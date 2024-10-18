@@ -9,8 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.request.RequestAttributes;
@@ -20,8 +19,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 /**
  * Contains common http related parameters and functions used across modules
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class HttpTraceHeader {
+@UtilityClass
+public class HttpTraceHeader {
 
     private static final List<String> REQUEST_HEADER_LIST;
 

@@ -2,16 +2,15 @@ package com.erebelo.spring.common.utils.http;
 
 import java.util.HashMap;
 import java.util.Map;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 
 /**
  * Wrapper class for managing HTTP header context using ThreadLocal storage.
  * Provides methods to set, get, and check the presence of HTTP headers for the
  * current thread.
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class HeaderContextHolder {
+@UtilityClass
+public class HeaderContextHolder {
 
     private static final ThreadLocal<Map<String, String>> threadLocal = ThreadLocal.withInitial(HashMap::new);
 
