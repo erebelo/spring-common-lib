@@ -5,6 +5,7 @@ Common Library for Spring Boot applications, providing shared utilities and cros
 ## Features
 
 - **[Logging](https://github.com/erebelo/spring-common-lib/tree/main/docs/logging-module.md)**: Utilizes Log4j2 for application logging, featuring an ECS (Elastic Common Schema) layout for JSON format in non-local environments.
+- **[Utils](https://github.com/erebelo/spring-common-lib/tree/main/docs/utils-module.md)**: Provides utility classes, including those for serialization, object mapping, and other common tasks.
 
 ## Requirements
 
