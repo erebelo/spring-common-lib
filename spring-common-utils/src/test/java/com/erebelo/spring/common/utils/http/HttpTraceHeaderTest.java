@@ -1,4 +1,4 @@
-package com.erebelo.spring.common.utils;
+package com.erebelo.spring.common.utils.http;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

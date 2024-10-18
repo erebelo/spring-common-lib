@@ -5,7 +5,7 @@ import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
-import com.erebelo.spring.common.utils.HeaderContextHolder;
+import com.erebelo.spring.common.utils.http.HeaderContextHolder;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

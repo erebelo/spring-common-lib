@@ -1,4 +1,4 @@
-package com.erebelo.spring.common.utils;
+package com.erebelo.spring.common.utils.http;
 
 import java.util.HashMap;
 import java.util.Map;

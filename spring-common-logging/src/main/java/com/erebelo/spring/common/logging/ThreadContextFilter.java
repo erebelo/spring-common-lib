@@ -1,8 +1,8 @@
 package com.erebelo.spring.common.logging;
 
-import static com.erebelo.spring.common.utils.HttpTraceHeader.getDefaultHttpTraceHeaders;
+import static com.erebelo.spring.common.utils.http.HttpTraceHeader.getDefaultHttpTraceHeaders;
 
-import com.erebelo.spring.common.utils.HeaderContextHolder;
+import com.erebelo.spring.common.utils.http.HeaderContextHolder;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

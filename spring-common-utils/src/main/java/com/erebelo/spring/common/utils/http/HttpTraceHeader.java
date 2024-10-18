@@ -1,4 +1,4 @@
-package com.erebelo.spring.common.utils;
+package com.erebelo.spring.common.utils.http;
 
 import static org.apache.commons.lang3.StringUtils.split;
 import static org.apache.commons.lang3.StringUtils.trimToEmpty;
