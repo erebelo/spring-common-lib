@@ -15,7 +15,7 @@ class ObjectMapperProviderTest {
 
     @Test
     void testObjectMapperConfiguration() {
-        ObjectMapper objectMapper = ObjectMapperProvider.objectMapper;
+        ObjectMapper objectMapper = ObjectMapperProvider.INSTANCE;
 
         assertThat(objectMapper.getRegisteredModuleIds()).contains(JAVA_TIME_MODULE);
         assertThat(objectMapper.getSerializationConfig().getDefaultPropertyInclusion().getValueInclusion())
@@ -30,8 +30,8 @@ class ObjectMapperProviderTest {
 
     @Test
     void testObjectMapperSingleton() {
-        ObjectMapper objectMapper1 = ObjectMapperProvider.objectMapper;
-        ObjectMapper objectMapper2 = ObjectMapperProvider.objectMapper;
+        ObjectMapper objectMapper1 = ObjectMapperProvider.INSTANCE;
+        ObjectMapper objectMapper2 = ObjectMapperProvider.INSTANCE;
 
         assertThat(objectMapper1).isSameAs(objectMapper2);
     }
