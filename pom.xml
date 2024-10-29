@@ -18,6 +18,7 @@
     <modules>
         <module>spring-common-utils</module>
         <module>spring-common-logging</module>
+        <module>spring-common-http</module>
     </modules>
 
     <properties>
@@ -25,6 +26,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <ecs.layout.version>1.6.0</ecs.layout.version>
+        <httpclient5.version>5.3.1</httpclient5.version>
         <lombok.version>1.18.34</lombok.version>
     </properties>
 
