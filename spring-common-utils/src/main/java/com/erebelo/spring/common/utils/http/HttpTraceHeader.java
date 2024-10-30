@@ -89,18 +89,30 @@ public class HttpTraceHeader {
     }
 
     /**
-     * Retrieves the current HttpServletRequest from the RequestContextHolder .
+     * Retrieves the current {@link HttpServletRequest} from the thread's
+     * {@link RequestAttributes}. Throws an exception if no request attributes are
+     * available.
      *
-     * @return the current HttpServletRequest object
+     * @return the current {@link HttpServletRequest}.
      * @throws IllegalStateException
-     *             if no request is currently active
+     *             if there are no current request attributes.
      */
     public static HttpServletRequest getHttpServletRequest() {
-        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-        if (requestAttributes == null) {
+        RequestAttributes contextAttributes = getRequestAttributes();
+        if (contextAttributes == null) {
             throw new IllegalStateException("No current request attributes");
         } else {
-            return ((ServletRequestAttributes) requestAttributes).getRequest();
+            return ((ServletRequestAttributes) contextAttributes).getRequest();
         }
+    }
+
+    /**
+     * Retrieves the current {@link RequestAttributes} for the current thread,
+     * providing access to request-scoped data such as headers and parameters.
+     *
+     * @return the current {@link RequestAttributes}, or null if none exists.
+     */
+    public static RequestAttributes getRequestAttributes() {
+        return RequestContextHolder.getRequestAttributes();
     }
 }

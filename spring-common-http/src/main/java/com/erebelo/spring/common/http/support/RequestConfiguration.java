@@ -4,7 +4,6 @@ import lombok.Data;
 import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.core5.util.Timeout;
 
-@Data
 public class RequestConfiguration {
 
     public static RequestConfig requestConfig(Properties properties) {

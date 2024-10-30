@@ -21,6 +21,6 @@ public class HttpClientProperties {
         private boolean external;
         private String baseUrl;
         private ProxyConfiguration.Properties auth;
-        private RequestConfiguration.Properties request;
+        private RequestConfiguration.Properties request = new RequestConfiguration.Properties();
     }
 }

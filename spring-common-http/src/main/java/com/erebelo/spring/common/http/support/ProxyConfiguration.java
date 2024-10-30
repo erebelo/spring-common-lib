@@ -54,5 +54,10 @@ public class ProxyConfiguration {
         private Integer port;
         private String user;
         private String pwd;
+
+        public Properties(String host, Integer port) {
+            this.host = host;
+            this.port = port;
+        }
     }
 }

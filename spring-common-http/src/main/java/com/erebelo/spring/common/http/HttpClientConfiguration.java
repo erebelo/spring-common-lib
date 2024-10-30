@@ -36,7 +36,7 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 @RequiredArgsConstructor
 @ConditionalOnProperty(prefix = "spring.common", name = "http-client.enabled", matchIfMissing = true)
-public class HttpClientProvider {
+public class HttpClientConfiguration {
 
     public static final String DEFAULT_REST_TEMPLATE_NAME = "default";
 
