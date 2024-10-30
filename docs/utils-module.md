@@ -15,6 +15,7 @@ The `spring-common-utils` module provides a collection of utility classes design
 ### Threading
 
 - `AsyncThreadContext`: Provides methods for propagating the current ThreadContext to new threads created by asynchronous operations, such as those initiated by CompletableFuture. This is particularly useful for maintaining context-specific data (like HTTP headers) across threads, ensuring that logging and other context-sensitive operations remain consistent.
+- `AsyncExecutorConfiguration`: Configures a `ThreadPoolTaskExecutor` for executing asynchronous tasks while preserving the current request attributes and HTTP headers in new threads. This ensures that the context from the original request is maintained, enabling seamless tracing and consistent logging across asynchronous operations.
 
 ## How to Use the Common Utils Module
 
