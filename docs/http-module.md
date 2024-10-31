@@ -47,31 +47,31 @@ public RestTemplate defaultRestTemplate() {
 
 ### 2. (Optional) Customizing the Connection Settings
 
-| Property Key                                                           | Default Value  | Description                  |
-| ---------------------------------------------------------------------- | -------------- | ---------------------------- |
-| `spring.common.http-client.services.default.request.conn-timeout`      | 3000 (Integer) | Connection timeout (ms)      |
-| `spring.common.http-client.services.default.request.conn-read-timeout` | 5000 (Integer) | Connection read timeout (ms) |
+| Property Key                                                           | Default Value  | Description                   |
+| ---------------------------------------------------------------------- | -------------- | ----------------------------- |
+| `spring.common.http-client.services.default.request.conn-timeout`      | 3000 (Integer) | Connection timeout (ms).      |
+| `spring.common.http-client.services.default.request.conn-read-timeout` | 5000 (Integer) | Connection read timeout (ms). |
 
 ### 3. (Optional) Requests with Basic Authorization
 
 For requests where `RestTemplate` needs to automatically add `Authorization` header, add the following properties to configuration file (`application.properties`):
 
-```properties
-spring.common.http-client.services.default.auth.user=${API_USER}
-spring.common.http-client.services.default.auth.pwd=${API_PASSWORD}
-```
+| Property Key                                           | Default Value    | Description                                          |
+| ------------------------------------------------------ | ---------------- | ---------------------------------------------------- |
+| `spring.common.http-client.services.default.auth.user` | Not set (String) | The username used for authorization.                 |
+| `spring.common.http-client.services.default.auth.pwd`  | Not set (String) | The password associated with the authorization user. |
 
 ### 4. (Optional) Requests to External APIs with Proxy Authentication
 
 To send requests that bypass any Gateway, configuring proxy authentication may be necessary. In the configuration file (`application.properties`) add the following properties:
 
-```properties
-spring.common.http-client.services.default.external=true
-spring.common.http-client.proxy.host=${PROXY_HOST}
-spring.common.http-client.proxy.port=${PROXY_PORT}
-spring.common.http-client.proxy.user=${PROXY_USER}
-spring.common.http-client.proxy.pwd=${PROXY_PASSWORD}
-```
+| Property Key                                          | Default Value    | Description                                                                                                                                              |
+| ----------------------------------------------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `spring.common.http-client.services.default.external` | false (Boolean)  | Enables or disables external API access for the `default` `RestTemplate` proxy configurations. Set to `true` to enable access and `false` to disable it. |
+| `spring.common.http-client.proxy.host`                | Not set (String) | The hostname of the proxy server that will be used for routing requests to external APIs.                                                                |
+| `spring.common.http-client.proxy.port`                | Not set (String) | The port number on which the proxy server is listening for incoming connections.                                                                         |
+| `spring.common.http-client.proxy.user`                | Not set (String) | The username for authenticating with the proxy server.                                                                                                   |
+| `spring.common.http-client.proxy.pwd`                 | Not set (String) | The password associated with the proxy user for authentication.                                                                                          |
 
 ### 5. (Optional) Multiple `RestTemplate` instances
 
@@ -79,12 +79,15 @@ A default `RestTemplate` instance is always created with the basic configuration
 
 For example, to create a second `RestTemplate` instance with the alias name `serviceTwo` you can use the following allowed properties:
 
-```properties
-spring.common.http-client.services.serviceTwo.request.conn-timeout=${CONN_TIMEOUT}
-spring.common.http-client.services.serviceTwo.request.conn-read-timeout=${CONN_READ_TIMEOUT}
-spring.common.http-client.services.serviceTwo.auth.user=${API_USER}
-spring.common.http-client.services.serviceTwo.auth.pwd=${API_PASSWORD}
-```
+| Property Key                                                              | Default Value    | Description                                                                                                                                                       |
+| ------------------------------------------------------------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `spring.common.http-client.services.serviceTwo.external`                  | false (Boolean)  | Enables or disables external API access for the `RestTemplate` `serviceTwo` alias proxy configurations. Set to `true` to enable access and `false` to disable it. |
+| `spring.common.http-client.services.serviceTwo.request.conn-timeout`      | 3000 (Integer)   | Connection timeout (ms).                                                                                                                                          |
+| `spring.common.http-client.services.serviceTwo.request.conn-read-timeout` | 5000 (Integer)   | Connection read timeout (ms).                                                                                                                                     |
+| `spring.common.http-client.services.serviceTwo.auth.user`                 | Not set (String) | The username used for authorization when making requests with the `RestTemplate` `serviceTwo` alias.                                                              |
+| `spring.common.http-client.services.serviceTwo.auth.pwd`                  | Not set (String) | The password associated with the authorization user for the `RestTemplate` `serviceTwo` alias.                                                                    |
+
+**NOTE**: To enable proxy authentication (via the property `spring.common.http-client.services.serviceTwo.external`) for the `RestTemplate` `serviceTwo` alias, refer back to [Step 4](#4-optional-requests-to-external-apis-with-proxy-authentication) and ensure that the appropriate proxy properties are set.
 
 In the application, refer to the custom `RestTemplate` instance by its alias using the `@Qualifier` annotation:
 
