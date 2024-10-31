@@ -45,9 +45,9 @@ To use the `spring-common-logging` module in your project, add the following dep
 ```xml
 <!-- Common Logging -->
 <dependency>
-  <groupId>com.erebelo</groupId>
-  <artifactId>spring-common-logging</artifactId>
-  <version>1.0.1-SNAPSHOT</version>
+    <groupId>com.erebelo</groupId>
+    <artifactId>spring-common-logging</artifactId>
+    <version>1.0.1-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -59,15 +59,15 @@ Add the following exclusions to your `pom.xml`:
 
 ```xml
 <dependency>
-  <groupId>org.springframework.boot</groupId>
-  <artifactId>spring-boot-starter-web</artifactId>
-  <!-- Resolves logging conflicts -->
-  <exclusions>
-    <exclusion>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-logging</artifactId>
-    </exclusion>
-  </exclusions>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+    <!-- Resolves logging conflicts -->
+    <exclusions>
+        <exclusion>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
+        </exclusion>
+    </exclusions>
 </dependency>
 ```
 
@@ -78,7 +78,7 @@ The following properties allow configuration of the logging behavior in the appl
 ### 1. (Optional) Disabling for Logging
 
 | Property Key                                   | Default Value | Description                                                                                                                                                                                                         |
-|------------------------------------------------|---------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ---------------------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `spring.common.logging-context-filter.enabled` | `true`        | Enables or disables the `ThreadContextFilter`. When set to `true`, the filter is active, and HTTP request headers are added to the logging context for tracing. Set this property to `false` to disable the filter. |
 
 ### 2. (Optional) Set the Service Name

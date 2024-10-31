@@ -27,8 +27,8 @@ To use the `spring-common-utils` module in your project, add the following depen
 ```xml
 <!-- Common Utils -->
 <dependency>
-  <groupId>com.erebelo</groupId>
-  <artifactId>spring-common-utils</artifactId>
-  <version>1.0.1-SNAPSHOT</version>
+    <groupId>com.erebelo</groupId>
+    <artifactId>spring-common-utils</artifactId>
+    <version>1.0.1-SNAPSHOT</version>
 </dependency>
 ```

@@ -11,9 +11,9 @@ To use the `spring-common-http` module in your project, add the following depend
 ```xml
 <!-- Common Http -->
 <dependency>
-  <groupId>com.erebelo</groupId>
-  <artifactId>spring-common-http</artifactId>
-  <version>1.0.1-SNAPSHOT</version>
+    <groupId>com.erebelo</groupId>
+    <artifactId>spring-common-http</artifactId>
+    <version>1.0.1-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -26,7 +26,9 @@ private RestTemplate restTemplate;
 
 ## Properties for `RestTemplate`
 
-The following properties allow for the configuration of the `RestTemplate` behavior in the application:
+The following properties allow for the configuration of the `RestTemplate` behavior in the application.
+
+For standard configurations, use the `default` alias name. To define additional custom `RestTemplate` configurations, replace `default` with a unique alias, such as `serviceTwo`.
 
 ### 1. (Optional) Disabling for `RestTemplate` instance from Common Http Module
 
@@ -45,22 +47,19 @@ public RestTemplate defaultRestTemplate() {
 
 ### 2. (Optional) Customizing the Connection Settings
 
-| Property Key                                                                        | Default Value  | Description                  |
-|-------------------------------------------------------------------------------------| -------------- | ---------------------------- |
-| `spring.common.http-client.services.<default,serviceTwo>.request.conn-timeout`      | 3000 (Integer) | Connection timeout (ms)      |
-| `spring.common.http-client.services.<default,serviceTwo>.request.conn-read-timeout` | 5000 (Integer) | Connection read timeout (ms) |
+| Property Key                                                           | Default Value  | Description                  |
+| ---------------------------------------------------------------------- | -------------- | ---------------------------- |
+| `spring.common.http-client.services.default.request.conn-timeout`      | 3000 (Integer) | Connection timeout (ms)      |
+| `spring.common.http-client.services.default.request.conn-read-timeout` | 5000 (Integer) | Connection read timeout (ms) |
 
 ### 3. (Optional) Requests with Basic Authorization
 
 For requests where `RestTemplate` needs to automatically add `Authorization` header, add the following properties to configuration file (`application.properties`):
 
 ```properties
-spring.common.http-client.services.<default,serviceTwo>.auth.host=${API_URL}
-spring.common.http-client.services.<default,serviceTwo>.auth.user=${API_USER}
-spring.common.http-client.services.<default,serviceTwo>.auth.pwd=${API_PASSWORD}
+spring.common.http-client.services.default.auth.user=${API_USER}
+spring.common.http-client.services.default.auth.pwd=${API_PASSWORD}
 ```
-
-**NOTE**: The `host` attribute is not mandatory, but it is advisable to use it, as the `HttpClient` can utilize it as a key in the credentials provider's map.
 
 ### 4. (Optional) Requests to External APIs with Proxy Authentication
 
@@ -76,24 +75,26 @@ spring.common.http-client.proxy.pwd=${PROXY_PASSWORD}
 
 ### 5. (Optional) Multiple `RestTemplate` instances
 
-For requests to different target hosts, varying connection requirements may arise. In such cases, configure additional `RestTemplate` instances by specifying unique configurations for each instance.
+A default `RestTemplate` instance is always created with the basic configurations specified under the `default` alias. Additionally, you can configure custom `RestTemplate` instances for unique connection requirements or distinct authorization settings by specifying unique aliases.
+
+For example, to create a second `RestTemplate` instance with the alias name `serviceTwo` you can use the following allowed properties:
 
 ```properties
-# Service Two
-spring.common.http-client.services.serviceTwo.auth.host=${API_URL}
+spring.common.http-client.services.serviceTwo.request.conn-timeout=${CONN_TIMEOUT}
+spring.common.http-client.services.serviceTwo.request.conn-read-timeout=${CONN_READ_TIMEOUT}
 spring.common.http-client.services.serviceTwo.auth.user=${API_USER}
 spring.common.http-client.services.serviceTwo.auth.pwd=${API_PASSWORD}
 ```
 
-To refer to additional APIs in service classes, use the `@Qualifier` annotation:
-
-**NOTE**: The service name (`serviceTwo`) declared previously is case-sensitive and must exactly match the name used in the `@Qualifier` annotation.
+In the application, refer to the custom `RestTemplate` instance by its alias using the `@Qualifier` annotation:
 
 ```java
 @Autowired
 @Qualifier("serviceTwoRestTemplate")
 private RestTemplate serviceTwoRestTemplate;
 ```
+
+**NOTE**: The alias (`serviceTwo`) is case-sensitive and must match exactly in the `@Qualifier` annotation, including the `RestTemplate` suffix.
 
 ## Usage of `httpapi` Module
 
