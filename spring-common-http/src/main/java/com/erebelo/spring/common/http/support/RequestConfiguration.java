@@ -1,9 +1,11 @@
 package com.erebelo.spring.common.http.support;
 
 import lombok.Data;
+import lombok.experimental.UtilityClass;
 import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.core5.util.Timeout;
 
+@UtilityClass
 public class RequestConfiguration {
 
     public static RequestConfig requestConfig(Properties properties) {

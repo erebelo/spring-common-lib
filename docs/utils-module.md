@@ -5,6 +5,7 @@ The `spring-common-utils` module provides a collection of utility classes design
 ## Utilities
 
 ### HTTP
+
 - `HttpTraceHeader`: Provides methods for managing HTTP headers in Spring Boot applications. It focuses on extracting and processing default HTTP trace headers, particularly useful for tracking requests across different services and ensuring that each request is uniquely identifiable.
 
 ### Serialization
@@ -20,6 +21,7 @@ The `spring-common-utils` module provides a collection of utility classes design
 ## How to Use the Common Utils Module
 
 ### 1. Importing the Module
+
 To use the `spring-common-utils` module in your project, add the following dependency in your `pom.xml` (for Maven). Make sure to replace `1.0.1-SNAPSHOT` with the appropriate version of the module you are using.
 
 ```xml
