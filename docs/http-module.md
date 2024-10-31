@@ -99,15 +99,14 @@ private RestTemplate serviceTwoRestTemplate;
 
 **NOTE**: The alias (`serviceTwo`) is case-sensitive and must match exactly in the `@Qualifier` annotation, including the `RestTemplate` suffix.
 
-## Usage of `httpapi` Module
+## Usage of Common Http Module
 
-When using the `httpapi` module in your project, the module automatically intercepts and propagates filtered headers from the incoming request to any outgoing API call made with `RestTemplate.exchange()`.
+When using the `spring-common-http` module in your project, the module automatically intercepts and propagates filtered headers from the incoming request to any outgoing API call made with `RestTemplate.exchange()`.
 This means that only the allowed headers are passed along, eliminating the need to manually include them in the `HttpEntity`.
 
 ### Passing `null` for `HttpEntity`
 
-You can pass `null` in `HttpEntity` if no additional headers or body are needed. The filter will still carry over
-the allowed headers from the original request.
+You can pass `null` in `HttpEntity` if no additional headers or body are needed. The filter will still carry over the allowed headers from the original request.
 
 ```java
 ResponseEntity<String> response = restTemplate.exchange(
@@ -120,8 +119,7 @@ ResponseEntity<String> response = restTemplate.exchange(
 
 ### Custom Headers
 
-If additional headers are required by the API you’re calling (beyond those that are filtered and propagated),
-you can still include them in the `HttpEntity`.
+If additional headers are required by the API you’re calling (beyond those that are filtered and propagated), you can still include them in the `HttpEntity`.
 
 ```java
 HttpHeaders headers = new HttpHeaders();
