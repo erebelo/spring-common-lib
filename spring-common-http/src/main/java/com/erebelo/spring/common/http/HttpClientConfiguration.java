@@ -27,11 +27,9 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * This class provides a singleton bean for a simple {@link RestTemplate}, with
- * default configuration, that supports calls for services in the same
- * infrastructure. It also provides, on post construct phase, a singleton for
- * each custom RestTemplate, given configuration passed through
- * {@link HttpClientProperties}.
+ * Configuration class for setting up HTTP client-related beans. It provides a
+ * default RestTemplate and custom RestTemplates based on application
+ * properties, enabling HTTP interactions with services.
  */
 @Configuration
 @RequiredArgsConstructor
@@ -45,8 +43,11 @@ public class HttpClientConfiguration {
     private final HttpClientProperties clientConfiguration;
 
     /**
-     * Provides a default {@link RestTemplate} bean with either basic or custom http
-     * client configuration.
+     * Creates a default RestTemplate bean configured with standard or custom HTTP
+     * client settings. This method checks for service properties and applies
+     * configurations accordingly.
+     *
+     * @return a configured RestTemplate instance
      */
     @Primary
     @Bean("RestTemplate")
@@ -57,8 +58,11 @@ public class HttpClientConfiguration {
     }
 
     /**
-     * Provides rest templates with custom configuration, defined in application
-     * properties.
+     * Registers additional RestTemplate instances for custom services based on
+     * configurations defined in application properties. This is done during the
+     * post construction phase to ensure all necessary configurations are loaded.
+     * Each custom RestTemplate is registered as a singleton bean in the application
+     * context.
      */
     @PostConstruct
     public void registerCustomClients() {
@@ -73,6 +77,15 @@ public class HttpClientConfiguration {
         }
     }
 
+    /**
+     * Configures and returns a RestTemplate based on the provided service
+     * properties. This method sets up interceptors for trace headers and basic
+     * authentication if specified.
+     *
+     * @param serviceProperties
+     *            the properties used to customize the RestTemplate
+     * @return a fully configured RestTemplate instance
+     */
     private RestTemplate getRestTemplate(HttpClientProperties.ServiceProperties serviceProperties) {
         List<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();
         interceptors.add(this.getTraceHeadersInterceptor());
@@ -87,6 +100,12 @@ public class HttpClientConfiguration {
                 .build();
     }
 
+    /**
+     * Creates an interceptor that adds trace headers to outgoing HTTP requests.
+     * These headers can be used for monitoring or tracing request flow.
+     *
+     * @return a ClientHttpRequestInterceptor that adds trace headers
+     */
     private ClientHttpRequestInterceptor getTraceHeadersInterceptor() {
         return (request, body, execution) -> {
             MultiValueMap<String, String> httpHeaders = HttpTraceHeader
@@ -97,9 +116,13 @@ public class HttpClientConfiguration {
     }
 
     /**
-     * We disable cookie management, expecting to interact with servers that don’t
-     * use cookies. Set system properties for runtime, when you need to override
-     * properties set in this config class.
+     * Configures and builds an HttpClient with the necessary connection settings.
+     * Cookie management is disabled, as interactions are expected to be stateless.
+     * If the service is external, proxy settings are configured accordingly.
+     *
+     * @param serviceConfig
+     *            the service-specific configuration for the HttpClient
+     * @return a configured HttpClient instance
      */
     private HttpClient httpClient(HttpClientProperties.ServiceProperties serviceConfig) {
         HttpClientBuilder httpClientBuilder = HttpClients.custom()
