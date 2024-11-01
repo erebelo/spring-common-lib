@@ -40,7 +40,7 @@ public class HttpClientConfiguration {
 
     private final ConfigurableBeanFactory beanFactory;
     private final RestTemplateBuilder restTemplateBuilder;
-    private final HttpClientProperties clientConfiguration;
+    private final HttpClientProperties httpClientProperties;
 
     /**
      * Creates a default RestTemplate bean configured with standard or custom HTTP
@@ -53,7 +53,7 @@ public class HttpClientConfiguration {
     @Bean("RestTemplate")
     public RestTemplate restTemplate() {
         return this.getRestTemplate(
-                Objects.requireNonNullElse(clientConfiguration.getServices().get(DEFAULT_REST_TEMPLATE_NAME),
+                Objects.requireNonNullElse(httpClientProperties.getServices().get(DEFAULT_REST_TEMPLATE_NAME),
                         new HttpClientProperties.ServiceProperties()));
     }
 
@@ -66,8 +66,8 @@ public class HttpClientConfiguration {
      */
     @PostConstruct
     public void registerCustomClients() {
-        if (clientConfiguration.getServices() != null) {
-            for (Map.Entry<String, HttpClientProperties.ServiceProperties> entry : clientConfiguration.getServices()
+        if (httpClientProperties.getServices() != null) {
+            for (Map.Entry<String, HttpClientProperties.ServiceProperties> entry : httpClientProperties.getServices()
                     .entrySet()) {
                 if (!DEFAULT_REST_TEMPLATE_NAME.equals(entry.getKey())) {
                     RestTemplate restTemplate = this.getRestTemplate(entry.getValue());
@@ -96,7 +96,7 @@ public class HttpClientConfiguration {
         }
 
         return restTemplateBuilder.interceptors(interceptors)
-                .requestFactory(() -> new HttpComponentsClientHttpRequestFactory(httpClient(serviceProperties)))
+                .requestFactory(() -> new HttpComponentsClientHttpRequestFactory(this.httpClient(serviceProperties)))
                 .build();
     }
 
@@ -133,7 +133,7 @@ public class HttpClientConfiguration {
         if (serviceConfig.isExternal()) {
             BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider();
             httpClientBuilder
-                    .setProxy(ProxyConfiguration.configProxy(credentialsProvider, clientConfiguration.getProxy()));
+                    .setProxy(ProxyConfiguration.configProxy(credentialsProvider, httpClientProperties.getProxy()));
         }
 
         return httpClientBuilder.build();
