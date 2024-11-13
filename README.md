@@ -11,12 +11,12 @@ Common Library for Spring Boot applications, providing shared utilities and cros
 ## Requirements
 
 - Java 17
-- Spring Boot 3.3.4
+- Spring Boot 3.x.x
 - Apache Maven 3.8.6
 
-## References
+## Libraries
 
-- This project utilizes the [spring-common-parent](https://github.com/erebelo/spring-common-parent) to manage the Spring Boot version and provide common configurations for plugins and formatting.
+- [spring-common-parent](https://github.com/erebelo/spring-common-parent): Manages the Spring Boot version and provide common configurations for plugins and formatting.
 
 ## How to Use
 
