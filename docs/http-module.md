@@ -89,15 +89,28 @@ For example, to create a second `RestTemplate` instance with the alias name `ser
 
 **NOTE**: To enable proxy authentication (via the property `spring.common.http-client.services.serviceTwo.external`) for the `RestTemplate` `serviceTwo` alias, refer back to [Step 4](#4-optional-requests-to-external-apis-with-proxy-authentication) and ensure that the appropriate proxy properties are set.
 
-In the application, refer to the custom `RestTemplate` instance by its alias using the `@Qualifier` annotation:
+In the application, refer to the custom `RestTemplate` instance by its alias using the `@Qualifier` annotation.
+Prefer using one of the two methods below to inject the `RestTemplate`:
+
+**Constructor Injection**:
+
+```java
+private final RestTemplate restTemplate;
+
+public ServiceImpl(@Qualifier("serviceTwoRestTemplate") RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+}
+```
+
+**Field Injection**:
 
 ```java
 @Autowired
 @Qualifier("serviceTwoRestTemplate")
-private RestTemplate serviceTwoRestTemplate;
+private RestTemplate restTemplate;
 ```
 
-**NOTE**: The alias (`serviceTwo`) defined in the configuration file (`application.properties`) is case-sensitive and must match exactly in the `@Qualifier` annotation, including the `RestTemplate` suffix. The variable name can differ from the name specified in the @Qualifier annotation. Additionally, using @Autowired is the most recommended approach for injecting dependencies in this case.
+**NOTE**: Using `@RequiredArgsConstructor` from Lombok doesn’t work properly with `@Qualifier` for constructor injection.
 
 ## Usage of Common Http Module
 
