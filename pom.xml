@@ -26,7 +26,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <ecs.layout.version>1.6.0</ecs.layout.version>
-        <httpclient5.version>5.3.1</httpclient5.version>
+        <httpclient5.version>5.4.1</httpclient5.version>
         <lombok.version>1.18.34</lombok.version>
     </properties>
 
@@ -41,6 +41,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+            <exclusions>
+                <exclusion> <!--Fixes logback-core vulnerability-->
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
