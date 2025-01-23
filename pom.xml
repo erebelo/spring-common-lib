@@ -30,18 +30,6 @@
         <lombok.version>1.18.36</lombok.version>
     </properties>
 
-    <!--Transitive dependencies-->
-    <dependencyManagement>
-        <dependencies>
-            <dependency> <!--Fixes logback-core vulnerability for versions prior to 1.5.13-->
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-core</artifactId>
-                <version>1.5.13</version>
-                <scope>provided</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <!--Spring-->
         <dependency>
