@@ -97,7 +97,7 @@ In the application, refer to the custom `RestTemplate` instance by its alias usi
 private RestTemplate serviceTwoRestTemplate;
 ```
 
-**NOTE**: The alias (`serviceTwo`) is case-sensitive and must match exactly in the `@Qualifier` annotation, including the `RestTemplate` suffix.
+**NOTE**: The alias (`serviceTwo`) defined in the configuration file (`application.properties`) is case-sensitive and must match exactly in the `@Qualifier` annotation, including the `RestTemplate` suffix. The variable name can differ from the name specified in the @Qualifier annotation. Additionally, using @Autowired is the most recommended approach for injecting dependencies in this case.
 
 ## Usage of Common Http Module
 
