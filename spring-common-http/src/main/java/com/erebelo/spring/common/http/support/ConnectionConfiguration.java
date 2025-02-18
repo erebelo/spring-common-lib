@@ -8,19 +8,22 @@ import lombok.experimental.UtilityClass;
 import org.apache.hc.client5.http.config.ConnectionConfig;
 import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
 import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManagerBuilder;
-import org.apache.hc.client5.http.ssl.SSLConnectionSocketFactory;
+import org.apache.hc.client5.http.ssl.ClientTlsStrategyBuilder;
+import org.apache.hc.client5.http.ssl.TlsSocketStrategy;
+import org.apache.hc.core5.http.ssl.TLS;
 import org.apache.hc.core5.ssl.SSLContexts;
 
 /**
  * Utility class for configuring HTTP connection settings. It provides methods
- * to set up connection management and SSL context for secure connections.
+ * to set up connection management and TLS socket strategy for secure
+ * connections.
  */
 @UtilityClass
 public class ConnectionConfiguration {
 
     /**
      * Creates a pooling HTTP client connection manager with default connection
-     * configurations. It sets up an SSL socket factory using the configured SSL
+     * configurations. It sets up a TLS socket strategy using the configured SSL
      * context for secure communication.
      *
      * @return a PoolingHttpClientConnectionManager for managing HTTP connections
@@ -28,7 +31,7 @@ public class ConnectionConfiguration {
     public static PoolingHttpClientConnectionManager connectionManager() {
         return PoolingHttpClientConnectionManagerBuilder.create()
                 .setDefaultConnectionConfig(ConnectionConfig.custom().build())
-                .setSSLSocketFactory(new SSLConnectionSocketFactory(configSslContext())).build();
+                .setTlsSocketStrategy(createTlsSocketStrategy()).build();
     }
 
     /**
@@ -39,11 +42,15 @@ public class ConnectionConfiguration {
      * @throws RuntimeException
      *             if an error occurs during SSL context configuration
      */
-    private static SSLContext configSslContext() {
+    private static TlsSocketStrategy createTlsSocketStrategy() {
         try {
-            return SSLContexts.custom().loadTrustMaterial((x509Certificates, s) -> true).build();
+            // Create an SSLContext that allows any certificate
+            SSLContext sslContext = SSLContexts.custom().loadTrustMaterial((x509Certificates, s) -> true).build();
+
+            return (TlsSocketStrategy) ClientTlsStrategyBuilder.create().setSslContext(sslContext)
+                    .setTlsVersions(TLS.V_1_3).build();
         } catch (NoSuchAlgorithmException | KeyManagementException | KeyStoreException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException("Failed to configure SSLContext", e);
         }
     }
 }
