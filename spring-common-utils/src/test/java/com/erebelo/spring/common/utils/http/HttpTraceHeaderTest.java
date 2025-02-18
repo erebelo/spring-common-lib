@@ -44,12 +44,12 @@ class HttpTraceHeaderTest {
             headerContextHolderMockedStatic.when(() -> HeaderContextHolder.set(headers)).thenAnswer(invocation -> null);
             headerContextHolderMockedStatic.when(HeaderContextHolder::get).thenReturn(headers);
 
-            MultiValueMap<String, String> result = HttpTraceHeader
+            MultiValueMap<String, String> response = HttpTraceHeader
                     .getMultiValueMapDefaultHttpTraceHeaders(servletRequestMock);
 
-            assertNotNull(result);
-            assertEquals(1, result.size());
-            assertEquals(requestId, result.getFirst(REQUEST_ID_HEADER));
+            assertNotNull(response);
+            assertEquals(1, response.size());
+            assertEquals(requestId, response.getFirst(REQUEST_ID_HEADER));
 
             headerContextHolderMockedStatic.verify(HeaderContextHolder::isPresent);
             headerContextHolderMockedStatic.verify(() -> HeaderContextHolder.set(headers));
@@ -73,12 +73,13 @@ class HttpTraceHeaderTest {
             headerContextHolderMockedStatic.when(() -> HeaderContextHolder.set(headers)).thenAnswer(invocation -> null);
             headerContextHolderMockedStatic.when(HeaderContextHolder::get).thenReturn(headers);
 
-            MultiValueMap<String, String> result = HttpTraceHeader
+            MultiValueMap<String, String> response = HttpTraceHeader
                     .getMultiValueMapDefaultHttpTraceHeaders(servletRequestMock);
 
-            assertNotNull(result);
-            assertEquals(1, result.size());
-            assertTrue(Objects.requireNonNull(result.getFirst(REQUEST_ID_HEADER)).startsWith(REQUEST_ID_HEADER_PREFIX),
+            assertNotNull(response);
+            assertEquals(1, response.size());
+            assertTrue(
+                    Objects.requireNonNull(response.getFirst(REQUEST_ID_HEADER)).startsWith(REQUEST_ID_HEADER_PREFIX),
                     "Expected value to start with 'DD-'");
 
             uuidMockedStatic.verify(UUID::randomUUID);
@@ -93,10 +94,10 @@ class HttpTraceHeaderTest {
         RequestAttributes mockRequestAttributes = new ServletRequestAttributes(servletRequestMock);
         RequestContextHolder.setRequestAttributes(mockRequestAttributes);
 
-        HttpServletRequest result = HttpTraceHeader.getHttpServletRequest();
+        HttpServletRequest response = HttpTraceHeader.getHttpServletRequest();
 
-        assertNotNull(result);
-        assertEquals(servletRequestMock, result);
+        assertNotNull(response);
+        assertEquals(servletRequestMock, response);
 
         RequestContextHolder.setRequestAttributes(null);
     }

@@ -22,9 +22,9 @@ class HeaderContextHolderTest {
     void testSetAndGet() {
         HeaderContextHolder.set(headers);
 
-        Map<String, String> result = HeaderContextHolder.get();
+        Map<String, String> response = HeaderContextHolder.get();
 
-        assertEquals(headers, result);
+        assertEquals(headers, response);
     }
 
     @Test

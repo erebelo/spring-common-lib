@@ -63,9 +63,7 @@ public class HttpTraceHeader {
             Map<String, String> httpHeaders = sanitizeHeader(httpServletRequest);
 
             // If RequestID is not present, generate a new UUID
-            if (!httpHeaders.containsKey(REQUEST_ID_HEADER)) {
-                httpHeaders.put(REQUEST_ID_HEADER, REQUEST_ID_HEADER_PREFIX + UUID.randomUUID());
-            }
+            httpHeaders.computeIfAbsent(REQUEST_ID_HEADER, k -> REQUEST_ID_HEADER_PREFIX + UUID.randomUUID());
 
             HeaderContextHolder.set(httpHeaders);
         }

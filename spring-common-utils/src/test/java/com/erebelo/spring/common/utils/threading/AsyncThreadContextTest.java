@@ -56,9 +56,9 @@ class AsyncThreadContextTest {
                 return "Some Value";
             };
 
-            String result = AsyncThreadContext.withThreadContext(supplier).get();
+            String response = AsyncThreadContext.withThreadContext(supplier).get();
 
-            assertEquals("Some Value", result);
+            assertEquals("Some Value", response);
             assertEquals(HEADER_VALUE, ThreadContext.get(HEADER_KEY));
         }
     }

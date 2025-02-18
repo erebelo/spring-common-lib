@@ -13,6 +13,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 class AsyncExecutorConfigurationTest {
@@ -34,7 +35,7 @@ class AsyncExecutorConfigurationTest {
     @Test
     void testAsyncTaskExecutorConfiguration() {
         AsyncExecutorConfiguration config = new AsyncExecutorConfiguration();
-        var executor = config.asyncTaskExecutor();
+        ThreadPoolTaskExecutor executor = config.asyncTaskExecutor();
 
         assertEquals(10, executor.getCorePoolSize());
         assertEquals(20, executor.getMaxPoolSize());

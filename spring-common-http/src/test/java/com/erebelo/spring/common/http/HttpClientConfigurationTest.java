@@ -30,7 +30,7 @@ import org.springframework.http.client.InterceptingClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 @ExtendWith(MockitoExtension.class)
-public class HttpClientConfigurationTest {
+class HttpClientConfigurationTest {
 
     private HttpClientConfiguration httpClientConfig;
     private final ConfigurableBeanFactory beanFactory = new DefaultListableBeanFactory();
