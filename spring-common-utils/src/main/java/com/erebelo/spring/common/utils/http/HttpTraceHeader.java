@@ -88,20 +88,22 @@ public class HttpTraceHeader {
 
     /**
      * Retrieves the current {@link HttpServletRequest} from the thread's
-     * {@link RequestAttributes}. Throws an exception if no request attributes are
-     * available.
+     * {@link RequestAttributes}. If no request attributes are present, or they are
+     * of an unexpected type, an {@link IllegalStateException} is thrown.
      *
      * @return the current {@link HttpServletRequest}.
      * @throws IllegalStateException
-     *             if there are no current request attributes.
+     *             if there are no request attributes available or they are not an
+     *             instance of {@link ServletRequestAttributes}.
      */
     public static HttpServletRequest getHttpServletRequest() {
         RequestAttributes contextAttributes = getRequestAttributes();
-        if (contextAttributes == null) {
-            throw new IllegalStateException("No current request attributes");
-        } else {
-            return ((ServletRequestAttributes) contextAttributes).getRequest();
+
+        if (contextAttributes instanceof ServletRequestAttributes servletRequestAttributes) {
+            return servletRequestAttributes.getRequest();
         }
+
+        throw new IllegalStateException("No current request attributes or invalid type");
     }
 
     /**

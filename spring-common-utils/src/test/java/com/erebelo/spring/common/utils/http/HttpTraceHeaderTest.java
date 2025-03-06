@@ -107,6 +107,6 @@ class HttpTraceHeaderTest {
         IllegalStateException exception = assertThrows(IllegalStateException.class,
                 HttpTraceHeader::getHttpServletRequest);
 
-        assertEquals("No current request attributes", exception.getMessage());
+        assertEquals("No current request attributes or invalid type", exception.getMessage());
     }
 }
