@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskDecorator;
+import org.springframework.lang.NonNull;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -38,7 +39,7 @@ public class AsyncExecutorConfiguration {
      */
     static class ContextCopyingTaskDecorator implements TaskDecorator {
         @Override
-        public Runnable decorate(Runnable runnable) {
+        public @NonNull Runnable decorate(@NonNull Runnable runnable) {
             RequestAttributes contextAttributes = HttpTraceHeader.getRequestAttributes();
             Map<String, String> httpHeaders = HttpTraceHeader
                     .getDefaultHttpTraceHeaders(((ServletRequestAttributes) contextAttributes).getRequest());

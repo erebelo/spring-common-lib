@@ -6,7 +6,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
 
 import com.erebelo.spring.common.utils.http.HttpTraceHeader;
-import jakarta.servlet.http.HttpServletRequest;
 import java.util.Map;
 import org.apache.logging.log4j.ThreadContext;
 import org.junit.jupiter.api.AfterEach;
@@ -47,12 +46,9 @@ class AsyncExecutorConfigurationTest {
     void testContextCopyingTaskDecoratorRunnable() {
         try (MockedStatic<HttpTraceHeader> mockedStatic = mockStatic(HttpTraceHeader.class)) {
             ServletRequestAttributes requestAttributesMock = mock(ServletRequestAttributes.class);
-            HttpServletRequest requestMock = mock(HttpServletRequest.class);
 
-            mockedStatic.when(HttpTraceHeader::getHttpServletRequest).thenReturn(requestMock);
             mockedStatic.when(HttpTraceHeader::getRequestAttributes).thenReturn(requestAttributesMock);
             mockedStatic.when(() -> HttpTraceHeader.getDefaultHttpTraceHeaders(any())).thenReturn(HTTP_HEADERS);
-            mockedStatic.when(requestAttributesMock::getRequest).thenReturn(requestMock);
 
             ThreadContext.put(HEADER_KEY, HEADER_VALUE);
 
