@@ -10,7 +10,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Configuration
 public class AsyncExecutorConfiguration {
@@ -42,13 +41,16 @@ public class AsyncExecutorConfiguration {
         public @NonNull Runnable decorate(@NonNull Runnable runnable) {
             RequestAttributes contextAttributes = HttpTraceHeader.getRequestAttributes();
             Map<String, String> httpHeaders = HttpTraceHeader
-                    .getDefaultHttpTraceHeaders(((ServletRequestAttributes) contextAttributes).getRequest());
+                    .getDefaultHttpTraceHeaders(HttpTraceHeader.getHttpServletRequest());
+
             return () -> {
                 try {
                     // Set the current request attributes for the new thread
                     RequestContextHolder.setRequestAttributes(contextAttributes);
-                    // Set the http headers in the HeaderContextHolder
+
+                    // Set the current http headers for the new thread
                     HeaderContextHolder.set(httpHeaders);
+
                     runnable.run();
                 } finally {
                     RequestContextHolder.resetRequestAttributes();
