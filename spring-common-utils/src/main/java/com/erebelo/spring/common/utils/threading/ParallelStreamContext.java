@@ -17,6 +17,16 @@ public class ParallelStreamContext {
      * request and logging contexts across threads. The contexts are set before
      * executing the action and cleaned up afterward.
      *
+     * <p>
+     * Example usage:
+     * </p>
+     *
+     * <pre>
+     * ParallelStreamContext.forEach(arrayObject.stream(), obj -> {
+     * 	// Code that needs access to the request attributes and ThreadContext
+     * });
+     * </pre>
+     *
      * @param stream
      *            the stream of elements to process
      * @param action
