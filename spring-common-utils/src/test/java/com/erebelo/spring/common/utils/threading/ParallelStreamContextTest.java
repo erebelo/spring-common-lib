@@ -2,10 +2,12 @@ package com.erebelo.spring.common.utils.threading;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
 
 import com.erebelo.spring.common.utils.http.HeaderContextHolder;
+import com.erebelo.spring.common.utils.http.HttpTraceHeader;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -24,11 +26,12 @@ class ParallelStreamContextTest {
 
     @Test
     void testForEachPreservesContext() {
-        try (MockedStatic<RequestContextHolder> requestContextMock = mockStatic(RequestContextHolder.class);
+        try (MockedStatic<HttpTraceHeader> mockedStatic = mockStatic(HttpTraceHeader.class);
                 MockedStatic<HeaderContextHolder> headerContextMock = mockStatic(HeaderContextHolder.class)) {
             RequestAttributes mockRequestAttributes = mock(RequestAttributes.class);
 
-            requestContextMock.when(RequestContextHolder::getRequestAttributes).thenReturn(mockRequestAttributes);
+            mockedStatic.when(HttpTraceHeader::getRequestAttributes).thenReturn(mockRequestAttributes);
+            mockedStatic.when(() -> HttpTraceHeader.getDefaultHttpTraceHeaders(any())).thenReturn(LOGGING_CONTEXT);
             headerContextMock.when(HeaderContextHolder::get).thenReturn(LOGGING_CONTEXT);
             headerContextMock.when(HeaderContextHolder::isPresent).thenReturn(false);
 

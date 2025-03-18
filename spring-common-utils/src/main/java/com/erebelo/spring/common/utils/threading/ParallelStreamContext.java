@@ -1,6 +1,7 @@
 package com.erebelo.spring.common.utils.threading;
 
 import com.erebelo.spring.common.utils.http.HeaderContextHolder;
+import com.erebelo.spring.common.utils.http.HttpTraceHeader;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
@@ -36,7 +37,7 @@ public class ParallelStreamContext {
      */
     public static <T> void forEach(Stream<T> stream, Consumer<T> action) {
         long mainThreadId = Thread.currentThread().getId();
-        RequestAttributes contextAttributes = RequestContextHolder.getRequestAttributes();
+        RequestAttributes contextAttributes = HttpTraceHeader.getRequestAttributes();
         Map<String, String> loggingContext = HeaderContextHolder.get();
 
         stream.parallel().forEach(item -> {
