@@ -48,7 +48,7 @@ public class ConnectionConfiguration {
             SSLContext sslContext = SSLContexts.custom().loadTrustMaterial((x509Certificates, s) -> true).build();
 
             return (TlsSocketStrategy) ClientTlsStrategyBuilder.create().setSslContext(sslContext)
-                    .setTlsVersions(TLS.V_1_3).build();
+                    .setTlsVersions(TLS.V_1_2, TLS.V_1_3).build();
         } catch (NoSuchAlgorithmException | KeyManagementException | KeyStoreException e) {
             throw new IllegalStateException("Failed to configure SSLContext", e);
         }
