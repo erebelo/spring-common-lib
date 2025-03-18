@@ -3,6 +3,7 @@ package com.erebelo.spring.common.utils.threading;
 import com.erebelo.spring.common.utils.http.HeaderContextHolder;
 import com.erebelo.spring.common.utils.http.HttpTraceHeader;
 import java.util.Map;
+import org.apache.logging.log4j.ThreadContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskDecorator;
@@ -34,7 +35,16 @@ public class AsyncExecutorConfiguration {
 
     /**
      * A TaskDecorator implementation that copies the current request attributes and
-     * HTTP headers to the runnable task's execution context.
+     * HTTP headers to the runnable task's execution context. It ensures that
+     * request-scoped data, such as HTTP headers, and logging context are preserved
+     * when the task is executed in a different thread.
+     * <p>
+     * This decorator uses:
+     * </p>
+     * <ul>
+     * <li>HeaderContextHolder to handle HTTP headers (for request-scoped data)</li>
+     * <li>ThreadContext to manage the logging context (for logging scope)</li>
+     * </ul>
      */
     static class ContextCopyingTaskDecorator implements TaskDecorator {
         @Override
@@ -48,13 +58,17 @@ public class AsyncExecutorConfiguration {
                     // Set the current request attributes for the new thread
                     RequestContextHolder.setRequestAttributes(contextAttributes);
 
-                    // Set the current http headers for the new thread
+                    // Set the current HTTP headers for the new thread using HeaderContextHolder
                     HeaderContextHolder.set(httpHeaders);
+
+                    // Set the current HTTP headers for the new thread using ThreadContext
+                    ThreadContext.putAll(httpHeaders);
 
                     runnable.run();
                 } finally {
                     RequestContextHolder.resetRequestAttributes();
                     HeaderContextHolder.remove();
+                    ThreadContext.clearAll();
                 }
             };
         }

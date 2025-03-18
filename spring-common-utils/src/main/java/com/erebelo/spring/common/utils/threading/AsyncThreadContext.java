@@ -1,5 +1,6 @@
 package com.erebelo.spring.common.utils.threading;
 
+import com.erebelo.spring.common.utils.http.HeaderContextHolder;
 import com.erebelo.spring.common.utils.http.HttpTraceHeader;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -12,10 +13,10 @@ import org.springframework.web.context.request.RequestContextHolder;
 public class AsyncThreadContext {
 
     /**
-     * Wraps a Runnable to propagate the current ThreadContext and HTTP request
-     * attributes to a new thread created by CompletableFuture's runAsync() method.
-     * This ensures that request-scoped data, such as headers and context
-     * attributes, remain accessible in the new thread.
+     * Wraps a Runnable to propagate the current ThreadContext (for logging) and
+     * HTTP request attributes to a new thread created by CompletableFuture's
+     * runAsync() method. This ensures that request-scoped data, such as headers and
+     * context attributes, remain accessible in the new thread.
      *
      * <p>
      * Example usage:
@@ -42,22 +43,26 @@ public class AsyncThreadContext {
                 // Set the current request attributes for the new thread
                 RequestContextHolder.setRequestAttributes(contextAttributes);
 
-                // Set the current http headers for the new thread
+                // Set the current HTTP headers for the new thread using HeaderContextHolder
+                HeaderContextHolder.set(httpHeaders);
+
+                // Set the current HTTP headers for the new thread using ThreadContext
                 ThreadContext.putAll(httpHeaders);
 
                 runnable.run();
             } finally {
                 RequestContextHolder.resetRequestAttributes();
+                HeaderContextHolder.remove();
                 ThreadContext.clearAll();
             }
         };
     }
 
     /**
-     * Wraps a Supplier to propagate the current ThreadContext and HTTP request
-     * attributes to a new thread created by CompletableFuture's supplyAsync()
-     * method. This ensures that request-scoped data, such as headers and context
-     * attributes, remain accessible in the new thread.
+     * Wraps a Supplier to propagate the current ThreadContext (for logging) and
+     * HTTP request attributes to a new thread created by CompletableFuture's
+     * supplyAsync() method. This ensures that request-scoped data, such as headers
+     * and context attributes, remain accessible in the new thread.
      *
      * <p>
      * Example usage:
@@ -72,10 +77,10 @@ public class AsyncThreadContext {
      *
      * @param supplier
      *            the task to be executed in the new thread
-     * @return a Supplier that restores the ThreadContext and request attributes
-     *         before execution and returns the result from the original supplier
      * @param <U>
      *            the return type of the Supplier
+     * @return a Supplier that restores the ThreadContext and request attributes
+     *         before execution and returns the result from the original supplier
      */
     public static <U> Supplier<U> withThreadContext(Supplier<U> supplier) {
         RequestAttributes contextAttributes = HttpTraceHeader.getRequestAttributes();
@@ -87,12 +92,16 @@ public class AsyncThreadContext {
                 // Set the current request attributes for the new thread
                 RequestContextHolder.setRequestAttributes(contextAttributes);
 
-                // Set the current http headers for the new thread
+                // Set the current HTTP headers for the new thread using HeaderContextHolder
+                HeaderContextHolder.set(httpHeaders);
+
+                // Set the current HTTP headers for the new thread using ThreadContext
                 ThreadContext.putAll(httpHeaders);
 
                 return supplier.get();
             } finally {
                 RequestContextHolder.resetRequestAttributes();
+                HeaderContextHolder.remove();
                 ThreadContext.clearAll();
             }
         };
