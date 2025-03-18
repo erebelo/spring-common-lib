@@ -32,7 +32,7 @@ import org.springframework.web.context.request.RequestContextHolder;
  * necessary to configure this if there is a need to modify the thread pool
  * settings, such as core pool size, maximum pool size, or queue capacity. If
  * the default thread pool configuration is sufficient, and only the propagation
- * of {@link ThreadContext} and HTTP request attributes to new threads is
+ * of HTTP request attributes and {@link ThreadContext} to new threads is
  * required, then using {@link AsyncThreadContext} alone is enough without the
  * need for custom thread pool configurations.
  * </p>
