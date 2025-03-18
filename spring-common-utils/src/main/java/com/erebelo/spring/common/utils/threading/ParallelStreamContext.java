@@ -41,8 +41,11 @@ public class ParallelStreamContext {
         Map<String, String> loggingContext = HeaderContextHolder.get();
 
         stream.parallel().forEach(item -> {
+            // Set the current request attributes for the new thread
             RequestContextHolder.setRequestAttributes(contextAttributes);
 
+            // Set the current HTTP headers for the new thread using HeaderContextHolder and
+            // ThreadContext
             if (!HeaderContextHolder.isPresent() && ThreadContext.isEmpty() && loggingContext != null) {
                 HeaderContextHolder.set(loggingContext);
                 ThreadContext.putAll(loggingContext);
