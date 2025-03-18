@@ -3,12 +3,13 @@ package com.erebelo.spring.common.utils.threading;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
 
+import com.erebelo.spring.common.utils.http.HeaderContextHolder;
 import com.erebelo.spring.common.utils.http.HttpTraceHeader;
-import jakarta.servlet.http.HttpServletRequest;
 import java.util.Map;
 import java.util.function.Supplier;
 import org.apache.logging.log4j.ThreadContext;
@@ -34,18 +35,19 @@ class AsyncThreadContextTest {
     @Test
     void testWithThreadContextRunnable() {
         try (MockedStatic<HttpTraceHeader> mockedStatic = mockStatic(HttpTraceHeader.class)) {
-            mockedStatic.when(HttpTraceHeader::getHttpServletRequest).thenReturn(mock(HttpServletRequest.class));
-            mockedStatic.when(() -> HttpTraceHeader.getDefaultHttpTraceHeaders(any())).thenReturn(HTTP_HEADERS);
             mockedStatic.when(HttpTraceHeader::getRequestAttributes).thenReturn(mockRequestAttributes);
+            mockedStatic.when(() -> HttpTraceHeader.getDefaultHttpTraceHeaders(any())).thenReturn(HTTP_HEADERS);
 
             Runnable runnable = () -> {
-                assertEquals(HEADER_VALUE, ThreadContext.get(HEADER_KEY));
                 assertEquals(mockRequestAttributes, RequestContextHolder.getRequestAttributes());
+                assertEquals(HTTP_HEADERS, HeaderContextHolder.get());
+                assertEquals(HEADER_VALUE, ThreadContext.get(HEADER_KEY));
             };
 
             AsyncThreadContext.withThreadContext(runnable).run();
 
             assertNotSame(mockRequestAttributes, RequestContextHolder.getRequestAttributes());
+            assertTrue(HeaderContextHolder.get().isEmpty());
             assertNull(ThreadContext.get(HEADER_KEY));
         }
     }
@@ -53,13 +55,13 @@ class AsyncThreadContextTest {
     @Test
     void testWithThreadContextSupplier() {
         try (MockedStatic<HttpTraceHeader> mockedStatic = mockStatic(HttpTraceHeader.class)) {
-            mockedStatic.when(HttpTraceHeader::getHttpServletRequest).thenReturn(mock(HttpServletRequest.class));
-            mockedStatic.when(() -> HttpTraceHeader.getDefaultHttpTraceHeaders(any())).thenReturn(HTTP_HEADERS);
             mockedStatic.when(HttpTraceHeader::getRequestAttributes).thenReturn(mockRequestAttributes);
+            mockedStatic.when(() -> HttpTraceHeader.getDefaultHttpTraceHeaders(any())).thenReturn(HTTP_HEADERS);
 
             Supplier<String> supplier = () -> {
-                assertEquals(HEADER_VALUE, ThreadContext.get(HEADER_KEY));
                 assertEquals(mockRequestAttributes, RequestContextHolder.getRequestAttributes());
+                assertEquals(HTTP_HEADERS, HeaderContextHolder.get());
+                assertEquals(HEADER_VALUE, ThreadContext.get(HEADER_KEY));
                 return "Some Value";
             };
 
@@ -67,6 +69,7 @@ class AsyncThreadContextTest {
 
             assertEquals("Some Value", response);
             assertNotSame(mockRequestAttributes, RequestContextHolder.getRequestAttributes());
+            assertTrue(HeaderContextHolder.get().isEmpty());
             assertNull(ThreadContext.get(HEADER_KEY));
         }
     }
