@@ -1,20 +1,21 @@
 package com.erebelo.spring.common.utils.threading;
 
-import static com.erebelo.spring.common.utils.http.HttpTraceHeader.getDefaultHttpTraceHeaders;
-import static com.erebelo.spring.common.utils.http.HttpTraceHeader.getHttpServletRequest;
-
+import com.erebelo.spring.common.utils.http.HttpTraceHeader;
 import java.util.Map;
 import java.util.function.Supplier;
 import lombok.experimental.UtilityClass;
 import org.apache.logging.log4j.ThreadContext;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 
 @UtilityClass
 public class AsyncThreadContext {
 
     /**
-     * Wraps a Runnable to carry over the current ThreadContext to a new thread
-     * created by CompletableFuture's runAsync() method. This keeps the
-     * ThreadContext data accessible in the new thread.
+     * Wraps a Runnable to propagate the current ThreadContext and HTTP request
+     * attributes to a new thread created by CompletableFuture's runAsync() method.
+     * This ensures that request-scoped data, such as headers and context
+     * attributes, remain accessible in the new thread.
      *
      * <p>
      * Example usage:
@@ -22,26 +23,41 @@ public class AsyncThreadContext {
      *
      * <pre>
      * CompletableFuture.runAsync(withThreadContext(() -> {
-     * 	// Code that needs the ThreadContext
+     * 	// Code that needs access to the ThreadContext and request attributes
      * }));
      * </pre>
      *
      * @param runnable
-     *            the Runnable to execute in the new thread
-     * @return a Runnable that restores the ThreadContext and runs the provided task
+     *            the task to be executed in the new thread
+     * @return a Runnable that restores the ThreadContext and request attributes
+     *         before execution
      */
     public static Runnable withThreadContext(Runnable runnable) {
-        Map<String, String> httpHeaders = getDefaultHttpTraceHeaders(getHttpServletRequest());
+        RequestAttributes contextAttributes = HttpTraceHeader.getRequestAttributes();
+        Map<String, String> httpHeaders = HttpTraceHeader
+                .getDefaultHttpTraceHeaders(HttpTraceHeader.getHttpServletRequest());
+
         return () -> {
-            ThreadContext.putAll(httpHeaders);
-            runnable.run();
+            try {
+                // Set the current request attributes for the new thread
+                RequestContextHolder.setRequestAttributes(contextAttributes);
+
+                // Set the current http headers for the new thread
+                ThreadContext.putAll(httpHeaders);
+
+                runnable.run();
+            } finally {
+                RequestContextHolder.resetRequestAttributes();
+                ThreadContext.clearAll();
+            }
         };
     }
 
     /**
-     * Wraps a Supplier to carry over the current ThreadContext to a new thread
-     * created by CompletableFuture's supplyAsync() method. This ensures that the
-     * ThreadContext data is accessible in the new thread.
+     * Wraps a Supplier to propagate the current ThreadContext and HTTP request
+     * attributes to a new thread created by CompletableFuture's supplyAsync()
+     * method. This ensures that request-scoped data, such as headers and context
+     * attributes, remain accessible in the new thread.
      *
      * <p>
      * Example usage:
@@ -49,21 +65,36 @@ public class AsyncThreadContext {
      *
      * <pre>
      * CompletableFuture.supplyAsync(withThreadContext(() -> {
-     * 	// Code that needs the ThreadContext
+     * 	// Code that needs access to the ThreadContext and request attributes
      * 	return someValue;
      * }));
      * </pre>
      *
      * @param supplier
-     *            the Supplier to execute in the new thread
-     * @return a Supplier that restores the ThreadContext and returns the value from
-     *         the original supplier
+     *            the task to be executed in the new thread
+     * @return a Supplier that restores the ThreadContext and request attributes
+     *         before execution and returns the result from the original supplier
+     * @param <U>
+     *            the return type of the Supplier
      */
     public static <U> Supplier<U> withThreadContext(Supplier<U> supplier) {
-        Map<String, String> httpHeaders = getDefaultHttpTraceHeaders(getHttpServletRequest());
+        RequestAttributes contextAttributes = HttpTraceHeader.getRequestAttributes();
+        Map<String, String> httpHeaders = HttpTraceHeader
+                .getDefaultHttpTraceHeaders(HttpTraceHeader.getHttpServletRequest());
+
         return () -> {
-            ThreadContext.putAll(httpHeaders);
-            return supplier.get();
+            try {
+                // Set the current request attributes for the new thread
+                RequestContextHolder.setRequestAttributes(contextAttributes);
+
+                // Set the current http headers for the new thread
+                ThreadContext.putAll(httpHeaders);
+
+                return supplier.get();
+            } finally {
+                RequestContextHolder.resetRequestAttributes();
+                ThreadContext.clearAll();
+            }
         };
     }
 }
