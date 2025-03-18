@@ -3,7 +3,9 @@ package com.erebelo.spring.common.utils.threading;
 import com.erebelo.spring.common.utils.http.HeaderContextHolder;
 import com.erebelo.spring.common.utils.http.HttpTraceHeader;
 import java.util.Map;
+import java.util.concurrent.Executor;
 import org.apache.logging.log4j.ThreadContext;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskDecorator;
@@ -12,7 +14,31 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
+/**
+ * Configuration class for setting up an asynchronous task executor with a
+ * customized thread pool.
+ * <p>
+ * This class is conditionally enabled based on the property:
+ * 
+ * <pre>
+ * spring.common.async-task-executor.enabled=true
+ * </pre>
+ * 
+ * If the property is not explicitly set, it defaults to **disabled**.
+ * </p>
+ * <p>
+ * This class is used when injecting an {@link Executor} or
+ * {@link ThreadPoolTaskExecutor} dependency into a service class. It is only
+ * necessary to configure this if there is a need to modify the thread pool
+ * settings, such as core pool size, maximum pool size, or queue capacity. If
+ * the default thread pool configuration is sufficient, and only the propagation
+ * of {@link ThreadContext} and HTTP request attributes to new threads is
+ * required, then using {@link AsyncThreadContext} alone is enough without the
+ * need for custom thread pool configurations.
+ * </p>
+ */
 @Configuration
+@ConditionalOnProperty(prefix = "spring.common", name = "async-task-executor.enabled", havingValue = "true")
 public class AsyncExecutorConfiguration {
 
     /**
