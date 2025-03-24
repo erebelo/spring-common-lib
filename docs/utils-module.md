@@ -23,14 +23,14 @@ The `spring-common-utils` module provides a collection of utility classes design
 
 ### 1. Importing the Module
 
-To use the `spring-common-utils` module in your project, add the following dependency in your `pom.xml` (for Maven). Make sure to replace `1.0.1-SNAPSHOT` with the appropriate version of the module you are using.
+To use the `spring-common-utils` module in your project, add the following dependency in your `pom.xml` (for Maven). Make sure to replace `1.0.0` with the appropriate version of the module you are using.
 
 ```xml
 <!-- Common Utils -->
 <dependency>
     <groupId>com.erebelo</groupId>
     <artifactId>spring-common-utils</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
@@ -41,5 +41,5 @@ The following property allow setting up an asynchronous task executor with a cus
 ### 1. (Optional) Enabling for a Customized Thread Pool
 
 | Property Key                                | Default Value | Description                                                                                                                                                                                                           |
-| ------------------------------------------- |---------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ------------------------------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `spring.common.async-task-executor.enabled` | `false`       | Enables or disables the `AsyncExecutorConfiguration`. When set to `true`, the custom thread pool settings are activated, and the current HTTP request attributes and ThreadContext and are propagated to new threads. |

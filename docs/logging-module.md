@@ -40,14 +40,14 @@ In the development (or in QA, Stage, Prod) environment, where the ECS layout is 
 
 ### 1. Importing the Module
 
-To use the `spring-common-logging` module in your project, add the following dependency in your `pom.xml` (for Maven). Make sure to replace `1.0.1-SNAPSHOT` with the appropriate version of the module you are using.
+To use the `spring-common-logging` module in your project, add the following dependency in your `pom.xml` (for Maven). Make sure to replace `1.0.0` with the appropriate version of the module you are using.
 
 ```xml
 <!-- Common Logging -->
 <dependency>
     <groupId>com.erebelo</groupId>
     <artifactId>spring-common-logging</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 

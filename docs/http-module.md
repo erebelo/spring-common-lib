@@ -6,14 +6,14 @@ The `spring-common-http` module supplies pre-configured HTTP client utilities ta
 
 ### 1. Importing the Module
 
-To use the `spring-common-http` module in your project, add the following dependency in your `pom.xml` (for Maven). Make sure to replace `1.0.1-SNAPSHOT` with the appropriate version of the module you are using.
+To use the `spring-common-http` module in your project, add the following dependency in your `pom.xml` (for Maven). Make sure to replace `1.0.0` with the appropriate version of the module you are using.
 
 ```xml
 <!-- Common Http -->
 <dependency>
     <groupId>com.erebelo</groupId>
     <artifactId>spring-common-http</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
