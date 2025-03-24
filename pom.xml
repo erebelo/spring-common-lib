@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.erebelo</groupId>
         <artifactId>spring-common-parent</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
 
     <artifactId>spring-common-lib</artifactId>
@@ -14,6 +14,13 @@
     <packaging>pom</packaging>
     <name>spring-common-lib</name>
     <description>Common Library for Spring Boot Applications</description>
+
+    <repositories>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/erebelo/spring-common-parent</url>
+        </repository>
+    </repositories>
 
     <modules>
         <module>spring-common-utils</module>
