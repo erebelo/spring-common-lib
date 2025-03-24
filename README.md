@@ -142,6 +142,7 @@ To publish a new version of the package to GitHub Packages, follow these steps:
    - Enter `deploy` and press **Enter**. This will run `mvn deploy` using the authentication settings from your `settings.xml`.
 
 6. **Verify the Package**:
+
    Once the deployment is successful, navigate to your GitHub repository and go to the **Packages** section to verify that the new version of the package is listed.
 
 7. **Update the SNAPSHOT Version**:
