@@ -132,7 +132,7 @@ To publish a new version of the package to GitHub Packages, follow these steps:
      ```sh
      git add .
      git commit -m "Package release version 2.0.0"
-     git push origin release-X.X.X
+     git push origin release-2.0.0
      ```
 
 5. **Deploy to GitHub Packages**:
