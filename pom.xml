@@ -17,14 +17,14 @@
 
     <repositories>
         <repository>
-            <id>github</id>
+            <id>github-spring-common-parent</id>
             <url>https://maven.pkg.github.com/erebelo/spring-common-parent</url>
         </repository>
     </repositories>
 
     <distributionManagement>
         <repository>
-            <id>github</id>
+            <id>github-spring-common-lib</id>
             <name>GitHub Packages - spring-common-lib</name>
             <url>https://maven.pkg.github.com/erebelo/spring-common-lib</url>
         </repository>

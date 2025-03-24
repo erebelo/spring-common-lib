@@ -36,7 +36,7 @@ Common Library for Spring Boot applications, providing shared utilities and cros
    ```xml
    <servers>
      <server>
-       <id>github</id>
+       <id>github-spring-common-lib</id>
        <username>USERNAME</username>
        <password>TOKEN</password>
      </server>
@@ -52,7 +52,7 @@ Common Library for Spring Boot applications, providing shared utilities and cros
    ```xml
      <repositories>
        <repository>
-         <id>github</id>
+         <id>github-spring-common-lib</id>
          <url>https://maven.pkg.github.com/erebelo/spring-common-lib</url>
        </repository>
      </repositories>
@@ -89,7 +89,7 @@ To publish a new version of the package to GitHub Packages, follow these steps:
    ```xml
    <servers>
      <server>
-       <id>github</id>
+       <id>github-spring-common-lib</id>
        <username>USERNAME</username>
        <password>TOKEN</password>
      </server>
@@ -105,7 +105,7 @@ To publish a new version of the package to GitHub Packages, follow these steps:
    ```xml
    <distributionManagement>
        <repository>
-           <id>github</id>
+           <id>github-spring-common-lib</id>
            <name>GitHub Packages - spring-common-lib</name>
            <url>https://maven.pkg.github.com/erebelo/spring-common-lib</url>
        </repository>
