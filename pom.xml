@@ -22,6 +22,14 @@
         </repository>
     </repositories>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages - spring-common-lib</name>
+            <url>https://maven.pkg.github.com/erebelo/spring-common-lib</url>
+        </repository>
+    </distributionManagement>
+
     <modules>
         <module>spring-common-utils</module>
         <module>spring-common-logging</module>

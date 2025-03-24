@@ -100,7 +100,21 @@ To publish a new version of the package to GitHub Packages, follow these steps:
 
    **NOTE**: Replace `USERNAME` with your GitHub username and `TOKEN` with the personal access token you just generated.
 
-3. **Update the Package Version**:
+3. **Configure Repository for Package Publishing**:
+
+   To enable publishing and retrieval from GitHub Packages, ensure the following configuration is set in the `pom.xml`:
+
+   ```xml
+   <distributionManagement>
+       <repository>
+           <id>github</id>
+           <name>GitHub Packages - spring-common-lib</name>
+           <url>https://maven.pkg.github.com/erebelo/spring-common-lib</url>
+       </repository>
+   </distributionManagement>
+   ```
+
+4. **Update the Package Version**:
 
    - Create a release branch from the `main` branch, named `release-X.X.X`, where `X.X.X` is the new version number you want to publish:
 
@@ -123,11 +137,19 @@ To publish a new version of the package to GitHub Packages, follow these steps:
      git push origin release-X.X.X
      ```
 
-4. **Deploy to GitHub Packages**:
+5. **Deploy to GitHub Packages**:
 
    Inside IntelliJ IDEA, open your project and navigate to **Maven** -> **Execute Maven Goal**:
 
    - Enter `deploy` and press **Enter**. This will run `mvn deploy` using the authentication settings from your `settings.xml`.
 
-5. **Verify the Package**:
+6. **Verify the Package**:
    Once the deployment is successful, navigate to your GitHub repository and go to the **Packages** section to verify that the new version of the package is listed.
+
+7. **Update the SNAPSHOT Version**:
+
+   Update the `SNAPSHOT` version in pom.xml from the `main` branch to the next one:
+
+   ```xml
+    <version>2.0.1-SNAPSHOT</version>
+   ```
