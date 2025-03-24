@@ -44,8 +44,6 @@ Common Library for Spring Boot applications, providing shared utilities and cros
    ```
 
    **NOTE**: Replace `USERNAME` with your GitHub username and `TOKEN` with the personal access token you just generated.
-   Configure Repositories:
-   In your child modules, configure the repositories section to include the GitHub Packages repository, where the spring-common-parent is hosted. This will allow your child modules to resolve dependencies from GitHub Packages.
 
 3. **Configure Repositories**:
 
