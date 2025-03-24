@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>spring-common-lib</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
     <name>spring-common-lib</name>
     <description>Common Library for Spring Boot Applications</description>

@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.erebelo</groupId>
         <artifactId>spring-common-lib</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
 
     <artifactId>spring-common-http</artifactId>
@@ -18,7 +18,7 @@
         <dependency>
             <groupId>com.erebelo</groupId>
             <artifactId>spring-common-utils</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
+            <version>1.0.0</version>
         </dependency>
         <!--Spring-->
         <dependency>
