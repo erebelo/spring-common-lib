@@ -109,7 +109,7 @@ To publish a new version of the package to GitHub Packages, follow these steps:
      git checkout -b release-2.0.0
      ```
 
-   - Update the version in pom.xml of the project to the desired new version number:
+   - Update the version in pom.xml for all modules of the project to the desired new version number:
 
      ```xml
      <version>2.0.0</version>
